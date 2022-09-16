@@ -1,10 +1,26 @@
 <?php
+  
 
+$check = chdir("C:\\xampp\htdocs\pdo");
+
+if ($check) {
+    
+
+     require_once "C:/xampp/htdocs/pdo"."/database/MySqldatabase.php";
+ }
+
+  
 
 class Validator{
 
     private static  $errors = array();
+     
+    private static $db;
 
+    public function __construct()
+    {
+        //self::$db = new MySqldatabase();
+    }
 
     private static function secureInput(&$input){
        $input = trim($input , " ");
@@ -48,7 +64,35 @@ class Validator{
           return self::$errors;
      }
 
+     public static function unique($email){
+           if (self::checkEmailExists($email) == false) {
+                  return true;
+           }
+
+           self::$errors["unique"] = "email is already registred";
+           return false;
+     }
+
+     private static function checkEmailExists($email){
+            self::$db = new MySqldatabase();
+
+            $stmt = self::$db->query("SELECT * FROM users WHERE email = :email");
+
+             $stmt->execute(["email" => $email]);
+
+            $result = $stmt->fetchAll(PDO::FETCH_COLUMN);
+            if (count($result) == 0) {
+                 return false;
+            }
+
+            return true;
+     }
+
 }
+
+
+
+  
 
  
 

@@ -21,6 +21,7 @@ $user = new user();
 
     Validator::Required($_POST["email"]);
     Validator::email($_POST["email"]);
+    Validator::unique($_POST["email"]);
     Validator::Required($_POST["name"]);
     if (Validator::validateFails() == true) {
           $errors = Validator::getErrors();
