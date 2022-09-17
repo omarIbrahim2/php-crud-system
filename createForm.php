@@ -1,23 +1,10 @@
 
-<?php
- session_start();
-?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/main.css">
-
-    <title>create user</title>
-</head>
-
-<body>
-
+  <?php 
+  
+   $path = realpath(dirname(__FILE__));
+  include_once $path . "\\includes\\header.php";  
+  ?>
     <div class=" m-5">
     <div class="container">
         <form action="http://localhost/pdo/UsersActions/create.php" method="POST">
@@ -36,7 +23,7 @@
             
 
         <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <label for="exampleFormControlInput1" class="form-label">Name</label>
                 <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name">
             </div>
             <div class="mb-3">
@@ -45,7 +32,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="exampleFormControlInput3" class="form-label">Email address</label>
+                <label for="exampleFormControlInput3" class="form-label">Password</label>
                 <input  name="password" type="password" class="form-control" id="exampleFormControlInput3" placeholder="password">
             </div>
              
@@ -62,11 +49,6 @@
 
 
 
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.slim.min.js"></script>
-    <script src="js/popper.min.js"></script>
-</body>
-
-</body>
-
-</html>
+    <?php 
+ include_once $path . "\\includes\\footer.php";  
+ ?>

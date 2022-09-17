@@ -26,7 +26,7 @@ $users = $user->select("name", "email", "id")->getAll();
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
-    <title>users</title>
+    <title>Dashboard</title>
 </head>
 
 <body>
@@ -40,6 +40,12 @@ $users = $user->select("name", "email", "id")->getAll();
             <?php if (isset($_SESSION['createSUCC'])) { ?>
 
                 <div class="alert alert-primary"><?php echo $_SESSION['createSUCC'] ?></div>
+                <?php session_destroy() ?>
+            <?php } ?>
+
+            <?php if (isset($_SESSION['update'])) { ?>
+
+                <div class="alert alert-primary"><?php echo $_SESSION['update'] ?></div>
                 <?php session_destroy() ?>
             <?php } ?>
             <div class="row">
@@ -67,7 +73,7 @@ $users = $user->select("name", "email", "id")->getAll();
                             <td><?php echo $user->name ?></td>
                             <td><?php echo $user->email ?></td>
                             <td>
-                                <a class="btn btn-secondary" href="">Edit</a>
+                                <a class="btn btn-secondary" href="http://localhost/pdo/updateForm.php?id=<?php echo $user->id ?>">Edit</a>
                                 <a class="btn btn-danger" href="http://localhost/pdo/UsersActions/delete.php?id=<?php echo $user->id ?>">Delete</a>
                             </td>
 
@@ -81,15 +87,3 @@ $users = $user->select("name", "email", "id")->getAll();
         </div>
 
     </div>
-
-
-
-
-
-
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.slim.min.js"></script>
-    <script src="js/popper.min.js"></script>
-</body>
-
-</html>

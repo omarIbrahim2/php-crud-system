@@ -52,9 +52,11 @@
 
        $stmt->bindParam("id" , $id , PDO::PARAM_INT);
 
-       $stmt->execute();
+         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_CLASS , $this::class);
+        $result = $stmt->fetchAll(PDO::FETCH_CLASS , $this::class);
+
+        return  count($result) < 1 ? false : array_pop($result); 
     }
 
 
@@ -68,6 +70,24 @@
          
         $stmt->bindParam("id" , $id , PDO::PARAM_INT);
         
+       return $stmt->execute();
+
+    }
+
+
+    public function update($user , $id){
+      $table = static::$table;
+     $query = "UPDATE"." "."$table". " ". "SET";
+
+      
+
+       $query = $this->buildQuery($user , $query);
+
+       $query .= " " ."WHERE id = :id;";
+
+       $stmt = $this->database->query($query);
+       $stmt->bindParam("id" , $id , PDO::PARAM_INT);
+       
        return $stmt->execute();
 
     }
@@ -91,33 +111,34 @@
 
   public function create($user){
        
-    $table = static::$table;
-    $query = "INSERT INTO " . " ". $table . " SET";
+      $table = static::$table;
+      $query = "INSERT INTO " . " ". $table . " SET";
     
-      foreach($user as $key=>$index){
-
-          $query .= " ".$key."="."'$index'"." ". ",";
-      }
-
-      $queryInArr = explode(" " , $query , -1);
-       $query = implode(" " , $queryInArr);
-
+      $query = $this->buildQuery($user , $query);
+       
        $query .= ";";
-       
-       
         
        $stmt = $this->database->query($query);
-
-       
-
     
-       return $stmt->execute();
+       return $stmt->execute();  
+      
+  }
 
+
+  private function buildQuery($values , $query)
+  {
+
+    foreach($values as $key=>$index){
+      $query .= " ".$key."="."'$index'"." ". ",";
+     }
+
+        $queryInArr = explode(" " , $query , -1);
+        $query = implode(" " , $queryInArr);
+         
+         //$query .= ";";
+
+         return $query;
         
-    
-
-      
-      
   }
     
 }
