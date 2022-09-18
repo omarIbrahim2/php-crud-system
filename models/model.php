@@ -77,7 +77,7 @@
 
     public function update($user , $id){
       $table = static::$table;
-     $query = "UPDATE"." "."$table". " ". "SET";
+     $query = "UPDATE IGNORE"." "."$table". " ". "SET";
 
       
 

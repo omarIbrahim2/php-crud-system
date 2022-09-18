@@ -28,7 +28,7 @@ if (isset($_POST["submit"])){
 
      Validator::Required($_POST["email"]);
      Validator::email($_POST["email"]);
-     Validator::unique($_POST["email"]);
+    // Validator::unique($_POST["email"]);
      Validator::Required($_POST["name"]);
 
 
@@ -47,10 +47,6 @@ if (isset($_POST["submit"])){
             $_SESSION["update"] = "user updated successfully";
             header("location:http://localhost/pdo/index.php");
           
-        }else{
-
-            header("location:http://localhost/pdo/index.php");
-
         }
 
   }
